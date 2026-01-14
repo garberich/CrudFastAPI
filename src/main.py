@@ -1,7 +1,5 @@
 from fastapi import FastAPI
+from shared.infrastructure.api import router as shared_router
 
 app = FastAPI()
-
-@app.get("/health")
-async def read_root():
-    return {"detail": "ok"}
+app.include_router(shared_router)
