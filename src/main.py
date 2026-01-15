@@ -1,9 +1,12 @@
 from fastapi import FastAPI
 from shared.infrastructure.health import router as health_router
-from shared.domain.api import router as item_router
-# from fastapi.middleware.cors import CORSMiddleware
+from shared.domain.item import router as item_router
 
-app = FastAPI()
+from shared.infrastructure.db.base import Base
+from shared.infrastructure.db.session import engine
+from shared.api.users import router as users_router
+
+# from fastapi.middleware.cors import CORSMiddleware
 
 '''
 Add middlewares
@@ -24,5 +27,10 @@ async def add_process_time_header(request, call_next):
     return response
 '''
 
+app = FastAPI(title="DDD FastAPI Example")
+
+Base.metadata.create_all(bind=engine)
+
 app.include_router(health_router, prefix="/health", tags=["health"])
 app.include_router(item_router, prefix="/item", tags=["item"])
+app.include_router(users_router, prefix="/user", tags=["user"])
