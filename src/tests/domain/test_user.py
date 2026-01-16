@@ -1,5 +1,5 @@
 import pytest
-from shared.domain.user import User
+from users.domain.user import User
 
 def test_create_user_with_valid_email():
     user = User.create("test@mail.com", "Test User")

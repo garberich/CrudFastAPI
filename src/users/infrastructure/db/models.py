@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String, Boolean
 from sqlalchemy.dialects.sqlite import BLOB
-from shared.infrastructure.db.base import Base
+from users.infrastructure.db.base import Base
 
 class UserModel(Base):
     __tablename__ = "users"

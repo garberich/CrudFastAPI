@@ -1,6 +1,6 @@
-from shared.domain.user import User
-from shared.domain.user_repository import UserRepository
-from shared.domain.errors import UserAlreadyExistsError
+from users.domain.user import User
+from users.domain.user_repository import UserRepository
+from users.domain.errors import UserAlreadyExistsError
 
 class CreateUserUseCase:
     def __init__(self, user_repository: UserRepository):

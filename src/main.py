@@ -1,10 +1,16 @@
-from fastapi import FastAPI
-from shared.infrastructure.health import router as health_router
-from shared.domain.item import router as item_router
+import sys
+from pathlib import Path
 
-from shared.infrastructure.db.base import Base
-from shared.infrastructure.db.session import engine
-from shared.api.users import router as users_router
+# Add the src directory to the path for absolute imports
+sys.path.insert(0, str(Path(__file__).parent))
+
+from fastapi import FastAPI
+from users.infrastructure.health import router as health_router
+from item import router as item_router
+
+from users.infrastructure.db.base import Base
+from users.infrastructure.db.session import engine
+from users.api.users import router as users_router
 
 # from fastapi.middleware.cors import CORSMiddleware
 

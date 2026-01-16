@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from shared.schemas.user import UserCreate, UserResponse
-from shared.application.create_user import CreateUserUseCase
-from shared.infrastructure.sqlalchemy_user_repository import SqlAlchemyUserRepository
-from shared.infrastructure.db.session import SessionLocal
-from shared.domain.errors import UserAlreadyExistsError
+from users.schemas.user import UserCreate, UserResponse
+from users.application.create_user import CreateUserUseCase
+from users.infrastructure.sqlalchemy_user_repository import SqlAlchemyUserRepository
+from users.infrastructure.db.session import SessionLocal
+from users.domain.errors import UserAlreadyExistsError
 
 # router = APIRouter(prefix="/users", tags=["users"])
 router = APIRouter()

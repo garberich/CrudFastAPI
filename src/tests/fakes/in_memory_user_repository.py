@@ -1,5 +1,5 @@
-from shared.domain.user import User
-from shared.domain.user_repository import UserRepository
+from users.domain.user import User
+from users.domain.user_repository import UserRepository
 
 class InMemoryUserRepository(UserRepository):
     def __init__(self):
