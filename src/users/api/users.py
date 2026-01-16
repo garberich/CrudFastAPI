@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from users.schemas.user import UserCreate, UserResponse
 from users.application.create_user import CreateUserUseCase
 from users.infrastructure.sqlalchemy_user_repository import SqlAlchemyUserRepository
-from users.infrastructure.db.session import SessionLocal
+from infrastructure.db.session import SessionLocal
 from users.domain.errors import UserAlreadyExistsError
 
 # router = APIRouter(prefix="/users", tags=["users"])
