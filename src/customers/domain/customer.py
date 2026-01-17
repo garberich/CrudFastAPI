@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from uuid import UUID, uuid4
+from .errors import CustomerAlreadyExistsError, InvalidCustomerError, CustomerNotFoundError
 
 @dataclass
 class Customer:
@@ -10,8 +11,11 @@ class Customer:
 
     @staticmethod
     def create(name: str, email: str) -> "Customer":
+        if not name:
+            raise InvalidCustomerError("Customer name is required")
+        
         if '@' not in email:
-            raise ValueError("Invalid email")
+            raise InvalidCustomerError("Customer email is required")
 
         return Customer(id=uuid4(), name=name, email=email, is_active=True)
     

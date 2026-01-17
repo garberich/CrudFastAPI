@@ -15,5 +15,4 @@ class CreateCustomerUseCase:
             )
         
         customer = Customer.create(name=name, email=email)
-        self.repository.save(customer)
-        return customer
+        return self.repository.save(customer)

@@ -7,9 +7,17 @@ class CustomerRepository(ABC):
         pass
 
     @abstractmethod
+    def get_by_id(self, customer_id: int) -> Customer | None:
+        pass
+
+    @abstractmethod
     def get_by_email(self, email: str) -> Customer | None:
         pass
 
-    # @abstractmethod
-    # def list(self) -> list[Customer]:
-    #     pass
+    @abstractmethod
+    def list(self) -> list[Customer]:
+        pass
+
+    @abstractmethod
+    def delete(self, customer_id: int) -> None:
+        pass
