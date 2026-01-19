@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from uuid import UUID, uuid4
-from .errors import CustomerAlreadyExistsError, InvalidCustomerError, CustomerNotFoundError
+from .errors import InvalidCustomerError
 
 @dataclass
 class Customer:
