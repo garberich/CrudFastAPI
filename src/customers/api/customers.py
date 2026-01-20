@@ -29,7 +29,7 @@ class UpdateCustomerRequest(BaseModel):
 
 
 class CustomerResponse(BaseModel):
-    id: UUID
+    id: str
     name: str
     email: str
     is_active: bool
@@ -52,7 +52,12 @@ def create_customer(data: CreateCustomerRequest, db: Session = Depends(get_db)):
 
     try:
         customer = use_case.execute(data.name, data.email)
-        return customer
+        return CustomerResponse(
+            id=str(customer.id),
+            name=customer.name,
+            email=customer.email,
+            is_active=customer.is_active,
+        )
 
     except CustomerAlreadyExistsError as e:
         raise HTTPException(status_code=400, detail=str(e))
@@ -64,7 +69,15 @@ def get_customer(customer_id: UUID, db: Session = Depends(get_db)):
     use_case = GetCustomerUseCase(repo)
 
     try:
-        return use_case.execute(customer_id)
+        customer = use_case.execute(customer_id)
+
+        return CustomerResponse(
+            id=str(customer.id),
+            name=customer.name,
+            email=customer.email,
+            is_active=customer.is_active,
+        )
+
     except CustomerNotFoundError as e:
         raise HTTPException(status_code=404, detail=str(e))
 
@@ -73,7 +86,17 @@ def get_customer(customer_id: UUID, db: Session = Depends(get_db)):
 def list_customers(db: Session = Depends(get_db)):
     repo = SqlAlchemyCustomerRepository(db)
     use_case = ListCustomersUseCase(repo)
-    return use_case.execute()
+    customers = use_case.execute()
+
+    return [
+        CustomerResponse(
+            id=str(c.id),
+            name=c.name,
+            email=c.email,
+            is_active=c.is_active,
+        )
+        for c in customers
+    ]
 
 
 @router.put("/{customer_id}", response_model=CustomerResponse)
@@ -86,7 +109,14 @@ def update_customer(
     use_case = UpdateCustomerUseCase(repo)
 
     try:
-        return use_case.execute(customer_id, data.name, data.email)
+        customer = use_case.execute(customer_id, data.name, data.email)
+
+        return CustomerResponse(
+            id=str(customer.id),
+            name=customer.name,
+            email=customer.email,
+            is_active=customer.is_active,
+        )
     except CustomerNotFoundError as e:
         raise HTTPException(status_code=404, detail=str(e))
     except CustomerAlreadyExistsError as e:
@@ -94,7 +124,7 @@ def update_customer(
 
 
 @router.delete("/{customer_id}", status_code=status.HTTP_204_NO_CONTENT)
-def deactivate_customer(customer_id: int, db: Session = Depends(get_db)):
+def deactivate_customer(customer_id: UUID, db: Session = Depends(get_db)):
     repo = SqlAlchemyCustomerRepository(db)
     use_case = DeactivateCustomerUseCase(repo)
 

@@ -1,5 +1,7 @@
 from .customer import Customer
+from uuid import UUID
 from abc import ABC, abstractmethod
+
 
 class CustomerRepository(ABC):
     @abstractmethod
@@ -7,7 +9,7 @@ class CustomerRepository(ABC):
         pass
 
     @abstractmethod
-    def get_by_id(self, customer_id: int) -> Customer | None:
+    def get_by_id(self, customer_id: UUID) -> Customer | None:
         pass
 
     @abstractmethod
@@ -19,5 +21,5 @@ class CustomerRepository(ABC):
         pass
 
     @abstractmethod
-    def delete(self, customer_id: int) -> None:
+    def delete(self, customer_id: UUID) -> None:
         pass
