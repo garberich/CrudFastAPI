@@ -4,6 +4,7 @@ from customers.application.update_customer import UpdateCustomerUseCase
 from customers.domain.errors import CustomerNotFoundError, CustomerAlreadyExistsError
 from tests.fakes.in_memory_customer_repository import InMemoryCustomerRepository
 
+
 def test_update_customer_successfully():
     repository = InMemoryCustomerRepository()
     customer = Customer.create(name="Old", email="old@mail.com")
@@ -16,6 +17,7 @@ def test_update_customer_successfully():
     assert update.name == "New"
     assert update.email == "new@mail.com"
 
+
 def test_update_customer_not_found():
     repo = InMemoryCustomerRepository()
     use_case = UpdateCustomerUseCase(repo)
@@ -23,9 +25,10 @@ def test_update_customer_not_found():
     with pytest.raises(CustomerNotFoundError):
         use_case.execute(1, "New", "new@mail.com")
 
+
 def test_update_customer_with_existing_email():
     repo = InMemoryCustomerRepository()
-    
+
     c1 = Customer.create("A", "a@mail.com")
     c1.id = 1
     repo.save(c1)
@@ -38,4 +41,3 @@ def test_update_customer_with_existing_email():
 
     with pytest.raises(CustomerAlreadyExistsError):
         use_case.execute(2, "B", "a@mail.com")
-    
