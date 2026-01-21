@@ -1,5 +1,9 @@
 # Install
 ```
+pip install poetry
+```
+
+```
 pip install requirements.txt
 ```
 
@@ -10,10 +14,10 @@ fastapi dev src/main.py
 
 ## Run with Uvicorn
 ```
-uvicorn main:app --reload --app-dir src
+poetry run uvicorn src.main:app --reload
 ```
 
 # Test
 ```
-pytest
+poetry run pytest
 ```
