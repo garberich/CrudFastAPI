@@ -1,15 +1,10 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-DATABASE_URL = "sqlite:///./test.db"
 
-engine = create_engine(
-    DATABASE_URL,
-    connect_args={"check_same_thread": False}
-)
+def get_engine(database_url: str):
+    return create_engine(database_url, connect_args={"check_same_thread": False})
 
-SessionLocal = sessionmaker(
-    autocommit=False,
-    autoflush=False,
-    bind=engine
-)
+
+def get_sessionmaker(engine):
+    return sessionmaker(autocommit=False, autoflush=False, bind=engine)

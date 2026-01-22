@@ -9,7 +9,7 @@ from customers.application.list_customers import ListCustomersUseCase
 from customers.application.update_customer import UpdateCustomerUseCase
 from customers.application.deactivate_customer import DeactivateCustomerUseCase
 from customers.domain.errors import CustomerAlreadyExistsError, CustomerNotFoundError
-from infrastructure.db.session import SessionLocal
+from infrastructure.db.dependencies import get_db
 from customers.infrastructure.sqlalchemy_customer_repository import (
     SqlAlchemyCustomerRepository,
 )
@@ -33,15 +33,6 @@ class CustomerResponse(BaseModel):
     name: str
     email: str
     is_active: bool
-
-
-# ---------- DB Dependency ----------
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 # ---------- Endpoint ----------

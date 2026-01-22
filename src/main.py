@@ -1,6 +1,7 @@
 import sys
 from pathlib import Path
 from fastapi import FastAPI
+
 # from fastapi.middleware.cors import CORSMiddleware
 
 # Add the src directory to the path for absolute imports
@@ -8,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 # Comun infrastructure
 from infrastructure.db.base import Base
-from infrastructure.db.session import engine
+from infrastructure.db.dependencies import engine
 
 # Models - Used for creating tables by SQLAlchemy
 import users.infrastructure.db.models
